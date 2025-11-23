@@ -1,11 +1,862 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import FloatingNav from '../components/FloatingNav.vue';
+import PrimaryButton from '../components/PrimaryButton.vue';
+import StepCard from '../components/StepCard.vue';
+import AnimatedCounter from '../components/AnimatedCounter.vue';
+import MentorsSection from '../components/MentorsSection.vue';
+import TestimonialsCarousel from '../components/TestimonialsCarousel.vue';
+import FAQItem from '../components/FAQItem.vue';
+import VideosSection from '../components/VideosSection.vue';
+import './../styles/global.css';
+const formUrl = 'https://forms.gle/JdC6fM1Fazotx6b6A';
+// YouTube channel and videos
+const youtubeChannel = {
+  name: 'CuestionaBle',
+  handle: '@cuestionablepe',
+  url: 'https://www.youtube.com/@cuestionablepe',
+};
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// To add videos: Just paste the video ID from YouTube URL
+// Example: https://www.youtube.com/watch?v=dQw4w9WgXcQ -> paste 'dQw4w9WgXcQ'
+const latestVideos = [
+  // Paste your video IDs here, one per line:
+  // 'your-video-id-1',
+  // 'your-video-id-2',
+  // 'your-video-id-3',
+].filter(Boolean);
+
+const steps = [
+  {
+    number: 1,
+    title: 'Explora nuestros mentores',
+    description: 'Descubre los perfiles y temas que más te inspiren.'
+  },
+  {
+    number: 2,
+    title: 'Completa el formulario',
+    description: 'Cuéntanos qué quieres lograr con tu mentoría.'
+  },
+  {
+    number: 3,
+    title: 'Coordinamos los detalles',
+    description: 'Revisaremos tu información y nos pondremos en contacto.'
+  },
+  {
+    number: 4,
+    title: 'Comienza tu mentoría',
+    description: 'Aprovecha al máximo tu sesión personalizada.'
+  }
+];
+
+// To add mentor photos:
+// 1. Place image files in /public/mentors/ folder (e.g., /public/mentors/adrian.jpg)
+// 2. Reference them as: image: 'mentors/adrian.jpg'
+// 3. Or use external URLs: image: 'https://example.com/photo.jpg'
+// 4. Leave empty for initials placeholder: image: ''
+
+const mentors = [
+  {
+    name: 'Adrian Zamudio',
+    topic: 'Marketing',
+    availability: 'Disponible',
+    rating: 5,
+    image: '', // Add: 'mentors/adrian.jpg' or external URL
+    bio: 'Especialista en marketing digital con más de 5 años de experiencia ayudando a empresas a crecer su presencia online y optimizar sus estrategias de contenido.' // Optional bio
+  },
+  {
+    name: 'Maribel Bartolo',
+    topic: 'Recursos Humanos',
+    availability: 'Disponible',
+    rating: 5,
+    image: '', // Add: 'mentors/maribel.jpg' or external URL
+    bio: 'Experta en gestión de talento y desarrollo organizacional, enfocada en crear culturas de trabajo positivas y procesos de selección efectivos.' // Optional bio
+  },
+  {
+    name: 'Nicole Quispe',
+    topic: 'Tecnología',
+    availability: 'Disponible',
+    rating: 4,
+    image: '', // Add: 'mentors/nicole.jpg' or external URL
+    bio: 'Desarrolladora full-stack y consultora en tecnología, especializada en ayudar a profesionales a transicionar al mundo tech y mejorar sus habilidades técnicas.' // Optional bio
+  }
+];
+
+const faqs = [
+  {
+    question: '¿Qué tipo de mentorías ofrecen?',
+    answer: 'Nos enfocamos en mejora del perfil profesional y soluciones basadas en herramientas de Business Intelligence.'
+  },
+  {
+    question: '¿Las mentorías son pagadas?',
+    answer: 'Sí, las mentorías tienen un costo que se comunica al momento de la confirmación. El pago se realiza dentro de los tres días posteriores a la aprobación.'
+  },
+  {
+    question: '¿Qué pasa si no puedo asistir?',
+    answer: 'Puedes reprogramar o solicitar reembolso con al menos 24 horas de anticipación.'
+  }
+];
 ---
 
 <Layout>
-	<Welcome />
+  <FloatingNav formUrl={formUrl} client:load />
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge animate-fade-in">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 2L10 6L14 6.5L11 9.5L11.5 14L8 12L4.5 14L5 9.5L2 6.5L6 6L8 2Z" fill="currentColor"/>
+          </svg>
+          <span>Mentorías personalizadas</span>
+        </div>
+
+        <h1 class="hero-title animate-fade-in" style="animation-delay: 0.1s">
+          Potencia tu carrera profesional
+        </h1>
+
+        <p class="hero-subtitle animate-fade-in" style="animation-delay: 0.2s">
+          Conecta con mentores expertos en Business Intelligence y desarrollo profesional. Sesiones 1 a 1 diseñadas para tus objetivos.
+        </p>
+
+        <div class="hero-cta animate-fade-in" style="animation-delay: 0.3s">
+          <a href={formUrl} target="_blank" rel="noopener noreferrer" class="hero-primary-btn">
+            <span>Solicitar mentoría</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="#como-funciona" class="hero-secondary-btn">
+            Cómo funciona
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="benefits">
+    <div class="container">
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" stroke="currentColor" stroke-width="2" fill="none"/>
+            </svg>
+          </div>
+          <h3>Sesiones personalizadas</h3>
+          <p>60 minutos completamente enfocados en tus objetivos</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+              <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <h3>Horarios flexibles</h3>
+          <p>Agenda cuando mejor te convenga</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9 11L12 14L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M21 12V19C21 20.1 20.1 21 19 21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Resultados medibles</h3>
+          <p>Seguimiento claro de tu progreso</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="como-funciona" class="process">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Proceso</div>
+        <h2 class="section-title">Cómo funciona</h2>
+      </div>
+
+      <div class="steps-list">
+        {steps.map((step, index) => (
+          <div class="step-wrapper">
+            <StepCard
+              number={step.number}
+              title={step.title}
+              description={step.description}
+              client:load
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- MENTORS -->
+  <section id="mentores" class="mentors">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Equipo</div>
+        <h2 class="section-title">Nuestros mentores</h2>
+      </div>
+
+      <MentorsSection mentors={mentors} client:load />
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Testimonios</div>
+        <h2 class="section-title">Lo que dicen nuestros mentorados</h2>
+      </div>
+
+      <TestimonialsCarousel client:visible />
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="faq">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">FAQ</div>
+        <h2 class="section-title">Preguntas frecuentes</h2>
+      </div>
+
+      <div class="faq-list">
+        {faqs.map((faq) => (
+          <FAQItem
+            question={faq.question}
+            answer={faq.answer}
+            client:load
+          />
+        ))}
+      </div>
+
+      <div class="faq-contact">
+        <p>
+          ¿Más preguntas? Escríbenos a <a href="mailto:contacto@cuestionable.pe">contacto@cuestionable.pe</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEOS -->
+  <section class="videos">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Videos</div>
+        <h2 class="section-title">Últimos videos de YouTube</h2>
+        <p class="section-description">
+          Contenido exclusivo sobre Business Intelligence, análisis de datos y desarrollo profesional
+        </p>
+      </div>
+
+      <div class="channel-info">
+        <div class="channel-content">
+          <div class="youtube-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </div>
+          <div class="channel-details">
+            <h3 class="channel-name">{youtubeChannel.name}</h3>
+            <p class="channel-handle">{youtubeChannel.handle}</p>
+          </div>
+        </div>
+        <a href={youtubeChannel.url} target="_blank" rel="noopener noreferrer" class="subscribe-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+          </svg>
+          Suscribirse
+        </a>
+      </div>
+
+      <VideosSection
+        client:load
+        videos={latestVideos}
+        channelUrl={youtubeChannel.url}
+      />
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3 class="footer-logo">CuestionaBle Mentorship</h3>
+          <p class="footer-tagline">
+            Hecho con intención para que cuestiones, aprendas y crezcas.
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4 class="footer-title">Navegación</h4>
+            <ul class="footer-list">
+              <li><a href="#como-funciona">Cómo funciona</a></li>
+              <li><a href="#mentores">Mentores</a></li>
+              <li><a href="#faq">FAQ</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4 class="footer-title">Contacto</h4>
+            <ul class="footer-list">
+              <li><a href="mailto:contacto@cuestionable.pe">contacto@cuestionable.pe</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; {new Date().getFullYear()} CuestionaBle Mentorship</p>
+      </div>
+    </div>
+  </footer>
 </Layout>
+
+<style>
+  /* HERO */
+  .hero {
+    position: relative;
+    padding: 120px 0 80px;
+    background: linear-gradient(135deg, #4a90e2 0%, #5b7fd8 50%, #be7bed 100%);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(190, 123, 237, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(74, 144, 226, 0.2) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 32px;
+  }
+
+  .hero-title {
+    font-size: 56px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 20px;
+    line-height: 1.1;
+  }
+
+  .hero-subtitle {
+    font-size: 20px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 40px;
+  }
+
+  .hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .hero-primary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 40px;
+    background: white;
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 18px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+                0 4px 10px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .hero-primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4),
+                0 8px 15px rgba(0, 0, 0, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .hero-primary-btn:active {
+    transform: translateY(-1px);
+  }
+
+  .hero-primary-btn svg {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .hero-primary-btn:hover svg {
+    transform: translateX(4px);
+  }
+
+  .hero-secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 18px 32px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 18px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .hero-secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+  }
+
+  /* BENEFITS */
+  .benefits {
+    padding: 80px 0;
+    background: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .benefits::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(74, 144, 226, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .benefits::after {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(2, 132, 199, 0.02) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .benefit-card {
+    text-align: center;
+    padding: 32px 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .benefit-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 20px;
+    color: var(--primary);
+  }
+
+  .benefit-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .benefit-card p {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* PROCESS */
+  .process {
+    padding: 80px 0;
+    background: linear-gradient(to bottom, #f8fafc 0%, #f1f5f9 100%);
+    position: relative;
+  }
+
+  .process::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0 L50 100 M0 50 L100 50' stroke='%230ea5e9' stroke-width='0.5' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .section-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--gradient-subtle);
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 100px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(74, 144, 226, 0.1);
+  }
+
+  .section-title {
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .steps-list {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* MENTORS */
+  .mentors {
+    padding: 80px 0;
+    background: linear-gradient(to bottom, white 0%, #fafbfc 100%);
+    position: relative;
+  }
+
+  .mentors::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(74, 144, 226, 0.04) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+    position: relative;
+  }
+
+  .testimonials::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(190, 123, 237, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* FAQ */
+  .faq {
+    padding: 80px 0;
+    background: white;
+  }
+
+  .faq-list {
+    max-width: 700px;
+    margin: 0 auto 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .faq-contact {
+    text-align: center;
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .faq-contact a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .faq-contact a:hover {
+    text-decoration: underline;
+  }
+
+  /* VIDEOS */
+  .videos {
+    padding: 80px 0;
+    background: var(--bg-secondary);
+  }
+
+  .channel-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    background: white;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    margin-bottom: 40px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .channel-info:hover {
+    border-color: rgba(74, 144, 226, 0.2);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .channel-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .youtube-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .channel-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .channel-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .channel-handle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .subscribe-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 2px 4px rgba(74, 144, 226, 0.15);
+  }
+
+  .subscribe-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(74, 144, 226, 0.2);
+  }
+
+
+  /* FOOTER */
+  .footer {
+    background: var(--text-primary);
+    color: white;
+    padding: 60px 0 32px;
+  }
+
+  .footer-content {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer-logo {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .footer-tagline {
+    font-size: 15px;
+    line-height: 1.6;
+    opacity: 0.7;
+    max-width: 400px;
+  }
+
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+
+  .footer-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.5;
+  }
+
+  .footer-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-list a {
+    color: white;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+    font-size: 14px;
+  }
+
+  .footer-list a:hover {
+    opacity: 1;
+  }
+
+  .footer-bottom {
+    text-align: center;
+    padding-top: 24px;
+    font-size: 14px;
+    opacity: 0.6;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero {
+      padding: 80px 0 60px;
+    }
+
+    .hero-title {
+      font-size: 36px;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+    }
+
+    .hero-cta {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero-primary-btn,
+    .hero-secondary-btn {
+      justify-content: center;
+      font-size: 16px;
+      padding: 16px 32px;
+    }
+
+    .section-title {
+      font-size: 32px;
+    }
+
+    .benefits,
+    .process,
+    .mentors,
+    .testimonials,
+    .faq,
+    .videos {
+      padding: 60px 0;
+    }
+
+    .channel-info {
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .channel-content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .subscribe-btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .benefits-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .mentors-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .footer-links {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+</style>
