@@ -1,60 +1,55 @@
 <template>
-  <div class="mentor-card">
-    <div class="mentor-photo-wrapper">
+  <div class="bg-white border border-[var(--border)] rounded-2xl overflow-hidden transition-all duration-300 transition-smooth flex flex-col h-full hover:border-[rgba(74,144,226,0.3)] hover:shadow-[var(--shadow-lg)] hover:-translate-y-1">
+    <div class="relative w-full aspect-square overflow-hidden bg-gradient-hero">
       <img
         v-if="image"
         :src="imageUrl"
         :alt="name"
-        class="mentor-photo"
+        class="w-full h-full object-cover block"
       />
-      <div v-else class="mentor-photo-placeholder">{{ initials }}</div>
-      <div :class="['status-indicator', availabilityClass]"></div>
+      <div v-else class="w-full h-full flex items-center justify-center text-[64px] font-extrabold text-white font-[Manrope,sans-serif]">{{ initials }}</div>
+      <div :class="['absolute bottom-3 right-3 w-5 h-5 rounded-full border-[3px] border-white shadow-[0_2px_8px_rgba(0,0,0,0.15)]', availabilityClass === 'available' ? 'bg-emerald-500' : 'bg-slate-400']"></div>
     </div>
 
-    <div class="mentor-content">
-      <div class="mentor-header">
-        <div class="header-top">
-          <h3 class="mentor-name">{{ name }}</h3>
+    <div class="p-5 md:p-6 flex flex-col gap-5 flex-1">
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center justify-between gap-3">
+          <h3 class="text-xl md:text-[22px] font-bold text-[var(--text-primary)] m-0 tracking-[-0.02em] font-[Manrope,sans-serif] flex-1">{{ name }}</h3>
           <button
             v-if="bio"
-            class="info-btn"
+            class="w-8 h-8 rounded-lg border border-[var(--border)] bg-white flex items-center justify-center cursor-pointer transition-all duration-200 transition-smooth shrink-0 text-[var(--text-secondary)] hover:border-[var(--primary)] hover:bg-[rgba(74,144,226,0.03)] hover:text-[var(--primary)] hover:scale-105"
             @click="showBioModal"
             aria-label="View mentor bio"
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-            >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
               <path d="M8 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
               <circle cx="8" cy="5" r="0.5" fill="currentColor"/>
             </svg>
           </button>
         </div>
-        <div class="mentor-topic">{{ topic }}</div>
+        <div class="inline-flex items-center px-3.5 py-1.5 bg-gradient-subtle text-[var(--primary)] text-[13px] font-semibold rounded-lg self-start border border-[rgba(74,144,226,0.1)]">{{ topic }}</div>
       </div>
 
-      <div class="mentor-stats">
-        <div class="stat">
-          <div class="stat-label">Disponibilidad</div>
-          <div :class="['stat-value', availabilityClass]">{{ availability }}</div>
+      <div class="grid grid-cols-2 md:grid-cols-1 gap-4 md:gap-3 pt-4 border-t border-[var(--border)]">
+        <div class="flex flex-col gap-1">
+          <div class="text-[13px] text-[var(--text-tertiary)] font-medium">Disponibilidad</div>
+          <div :class="['text-[15px] font-semibold', availabilityClass === 'available' ? 'text-emerald-500' : 'text-[var(--text-tertiary)]']">{{ availability }}</div>
         </div>
-        <div class="stat">
-          <div class="stat-label">Valoración</div>
-          <div class="stat-value">
-            <div class="rating">
-              <span class="rating-number">{{ rating }}.0</span>
-              <div class="stars">{{ starsDisplay }}</div>
+        <div class="flex flex-col gap-1">
+          <div class="text-[13px] text-[var(--text-tertiary)] font-medium">Valoración</div>
+          <div class="text-[15px] font-semibold text-[var(--text-primary)]">
+            <div class="flex flex-col gap-0.5">
+              <span>{{ rating }}.0</span>
+              <div class="text-sm text-amber-400 tracking-[1px]">{{ starsDisplay }}</div>
             </div>
           </div>
         </div>
       </div>
 
-      <button class="mentor-btn" @click="handleClick">
+      <button class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-white text-[var(--primary)] border-[1.5px] border-[var(--border)] rounded-lg text-[15px] font-semibold cursor-pointer transition-all duration-200 transition-smooth font-inherit hover:border-[var(--primary)] hover:shadow-[var(--shadow-md)] hover:-translate-y-[1px] group" @click="handleClick">
         <span>{{ buttonText }}</span>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <svg class="transition-transform duration-200 transition-smooth group-hover:translate-x-0.5" width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
@@ -63,7 +58,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps({
   name: {
@@ -109,11 +104,9 @@ const showBioModal = () => {
 };
 
 const imageUrl = computed(() => {
-  // If image starts with http:// or https://, use it directly (external URL)
   if (props.image.startsWith('http://') || props.image.startsWith('https://')) {
     return props.image;
   }
-  // Otherwise, prepend the base URL for local images in public folder
   return `${import.meta.env.BASE_URL}${props.image}`;
 });
 
@@ -141,233 +134,3 @@ const handleClick = () => {
   });
 };
 </script>
-
-<style scoped>
-.mentor-card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.mentor-card:hover {
-  border-color: rgba(74, 144, 226, 0.3);
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-4px);
-}
-
-.mentor-photo-wrapper {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1;
-  overflow: hidden;
-  background: var(--gradient-hero);
-}
-
-.mentor-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.mentor-photo-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 64px;
-  font-weight: 800;
-  color: white;
-  font-family: 'Manrope', sans-serif;
-}
-
-.status-indicator {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 3px solid white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.status-indicator.available {
-  background: #10b981;
-}
-
-.status-indicator.unavailable {
-  background: #8898aa;
-}
-
-.mentor-content {
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  flex: 1;
-}
-
-.mentor-header {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.header-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.mentor-name {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0;
-  letter-spacing: -0.02em;
-  font-family: 'Manrope', sans-serif;
-  flex: 1;
-}
-
-.info-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  flex-shrink: 0;
-  color: var(--text-secondary);
-}
-
-.info-btn:hover {
-  border-color: var(--primary);
-  background: rgba(74, 144, 226, 0.03);
-  color: var(--primary);
-  transform: scale(1.05);
-}
-
-.mentor-topic {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 14px;
-  background: var(--gradient-subtle);
-  color: var(--primary);
-  font-size: 13px;
-  font-weight: 600;
-  border-radius: 8px;
-  align-self: flex-start;
-  border: 1px solid rgba(74, 144, 226, 0.1);
-}
-
-.mentor-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-}
-
-.stat {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.stat-label {
-  font-size: 13px;
-  color: var(--text-tertiary);
-  font-weight: 500;
-}
-
-.stat-value {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.stat-value.available {
-  color: #10b981;
-}
-
-.stat-value.unavailable {
-  color: var(--text-tertiary);
-}
-
-.rating {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.rating-number {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.stars {
-  font-size: 14px;
-  color: #fbbf24;
-  letter-spacing: 1px;
-}
-
-.mentor-btn {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 24px;
-  background: white;
-  color: var(--primary);
-  border: 1.5px solid var(--border);
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  font-family: inherit;
-}
-
-.mentor-btn:hover {
-  border-color: var(--primary);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-1px);
-}
-
-.mentor-btn svg {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.mentor-btn:hover svg {
-  transform: translateX(2px);
-}
-
-@media (max-width: 768px) {
-  .mentor-content {
-    padding: 20px;
-  }
-
-  .mentor-name {
-    font-size: 20px;
-  }
-
-  .mentor-stats {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-}
-</style>

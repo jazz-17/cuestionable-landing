@@ -1,77 +1,77 @@
 <template>
   <DialogRoot :open="isOpen" @update:open="handleOpenChange">
     <DialogPortal>
-      <DialogOverlay class="modal-overlay" />
-      <DialogContent class="modal-container">
-        <DialogClose class="modal-close" aria-label="Cerrar">
+      <DialogOverlay class="modal-overlay fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[9999] flex items-center justify-center" />
+      <DialogContent class="modal-container bg-white rounded-[20px] max-w-[500px] w-[calc(100%-40px)] max-h-[90vh] overflow-y-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[0_20px_60px_rgba(15,23,42,0.2)] z-[10000] md:w-full md:max-w-full md:rounded-b-none md:max-h-[95vh] md:top-auto md:bottom-0 md:translate-y-0">
+        <DialogClose class="absolute top-5 right-5 w-9 h-9 rounded-lg border-none bg-[var(--bg-secondary)] text-[var(--text-secondary)] cursor-pointer flex items-center justify-center transition-all duration-200 z-[1] hover:bg-[var(--border)] hover:text-[var(--text-primary)]" aria-label="Cerrar">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </DialogClose>
 
-        <div class="modal-header">
-          <div class="mentor-badge">
-            <div class="badge-avatar">{{ mentorInitials }}</div>
-            <div class="badge-info">
-              <div class="badge-name">{{ mentorName }}</div>
-              <div class="badge-topic">{{ mentorTopic }}</div>
+        <div class="p-6 md:p-8 pb-5 md:pb-6 border-b border-[var(--border)]">
+          <div class="flex items-center gap-3 p-3 bg-gradient-subtle rounded-xl mb-5 border border-[rgba(74,144,226,0.1)]">
+            <div class="w-10 h-10 rounded-lg bg-gradient-hero text-white flex items-center justify-center font-bold text-base font-[Manrope,sans-serif] shrink-0">{{ mentorInitials }}</div>
+            <div>
+              <div class="font-semibold text-[var(--text-primary)] text-[15px]">{{ mentorName }}</div>
+              <div class="text-[13px] text-[var(--primary)] font-medium">{{ mentorTopic }}</div>
             </div>
           </div>
-          <DialogTitle class="modal-title">Solicitar mentoría</DialogTitle>
-          <DialogDescription class="modal-subtitle">Completa tus datos y te contactaremos pronto</DialogDescription>
+          <DialogTitle class="text-2xl md:text-[28px] font-bold text-[var(--text-primary)] m-0 mb-2">Solicitar mentoría</DialogTitle>
+          <DialogDescription class="text-base text-[var(--text-secondary)] m-0">Completa tus datos y te contactaremos pronto</DialogDescription>
         </div>
 
-        <form class="modal-form" @submit.prevent="handleSubmit">
-          <div class="form-group">
-            <label for="name" class="form-label">Nombre completo</label>
+        <form class="p-6 md:p-8 flex flex-col gap-5" @submit.prevent="handleSubmit">
+          <div class="flex flex-col gap-2">
+            <label for="name" class="text-sm font-semibold text-[var(--text-primary)]">Nombre completo</label>
             <input
               id="name"
               v-model="formData.name"
               type="text"
-              class="form-input"
+              class="w-full px-4 py-3 border-[1.5px] border-[var(--border)] rounded-lg text-[15px] font-inherit text-[var(--text-primary)] transition-all duration-200 bg-white focus:outline-none focus:border-[var(--primary)] focus:shadow-[0_0_0_3px_rgba(74,144,226,0.1)]"
               placeholder="Tu nombre"
               required
             />
           </div>
 
-          <div class="form-group">
-            <label for="email" class="form-label">Correo electrónico</label>
+          <div class="flex flex-col gap-2">
+            <label for="email" class="text-sm font-semibold text-[var(--text-primary)]">Correo electrónico</label>
             <input
               id="email"
               v-model="formData.email"
               type="email"
-              class="form-input"
+              class="w-full px-4 py-3 border-[1.5px] border-[var(--border)] rounded-lg text-[15px] font-inherit text-[var(--text-primary)] transition-all duration-200 bg-white focus:outline-none focus:border-[var(--primary)] focus:shadow-[0_0_0_3px_rgba(74,144,226,0.1)]"
               placeholder="tu@email.com"
               required
             />
           </div>
 
-          <div class="form-group">
-            <label for="date" class="form-label">Fecha preferida</label>
+          <div class="flex flex-col gap-2">
+            <label for="date" class="text-sm font-semibold text-[var(--text-primary)]">Fecha preferida</label>
             <input
               id="date"
               v-model="formData.date"
               type="date"
-              class="form-input"
+              class="w-full px-4 py-3 border-[1.5px] border-[var(--border)] rounded-lg text-[15px] font-inherit text-[var(--text-primary)] transition-all duration-200 bg-white focus:outline-none focus:border-[var(--primary)] focus:shadow-[0_0_0_3px_rgba(74,144,226,0.1)]"
               :min="minDate"
               required
             />
           </div>
 
-          <div class="form-group">
-            <label for="message" class="form-label">Cuéntanos sobre tus objetivos (opcional)</label>
+          <div class="flex flex-col gap-2">
+            <label for="message" class="text-sm font-semibold text-[var(--text-primary)]">Cuéntanos sobre tus objetivos (opcional)</label>
             <textarea
               id="message"
               v-model="formData.message"
-              class="form-textarea"
+              class="w-full px-4 py-3 border-[1.5px] border-[var(--border)] rounded-lg text-[15px] font-inherit text-[var(--text-primary)] transition-all duration-200 bg-white resize-y min-h-[100px] focus:outline-none focus:border-[var(--primary)] focus:shadow-[0_0_0_3px_rgba(74,144,226,0.1)]"
               placeholder="¿Qué te gustaría lograr con esta mentoría?"
               rows="4"
             ></textarea>
           </div>
 
-          <button type="submit" class="form-submit">
+          <button type="submit" class="w-full px-6 py-3.5 bg-[var(--primary)] text-white border-none rounded-lg text-base font-semibold cursor-pointer transition-all duration-200 transition-smooth flex items-center justify-center gap-2 font-inherit shadow-[0_2px_4px_rgba(74,144,226,0.15)] hover:bg-[var(--primary-dark)] hover:shadow-[0_4px_8px_rgba(74,144,226,0.2)] hover:-translate-y-[1px] group">
             <span>Enviar solicitud</span>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <svg class="transition-transform duration-200 transition-smooth group-hover:translate-x-0.5" width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
@@ -139,13 +139,11 @@ const handleOpenChange = (open) => {
 };
 
 const handleSubmit = () => {
-  // Placeholder - would normally send to backend
   console.log('Form submitted:', {
     mentor: props.mentorName,
     ...formData.value
   });
 
-  // Redirect to actual form with pre-filled data
   const params = new URLSearchParams({
     mentor: props.mentorName,
     name: formData.value.name,
@@ -156,7 +154,6 @@ const handleSubmit = () => {
 
   window.open(`https://forms.gle/JdC6fM1Fazotx6b6A?${params.toString()}`, '_blank');
 
-  // Reset form
   formData.value = {
     name: '',
     email: '',
@@ -169,296 +166,50 @@ const handleSubmit = () => {
 </script>
 
 <style>
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(4px);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .modal-overlay[data-state='open'] {
   animation: overlayShow 250ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-
 .modal-overlay[data-state='closed'] {
   animation: overlayHide 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-@keyframes overlayShow {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes overlayHide {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-.modal-container {
-  background: white;
-  border-radius: 20px;
-  max-width: 500px;
-  width: calc(100% - 40px);
-  max-height: 90vh;
-  overflow-y: auto;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.2);
-  z-index: 10000;
-}
-
 .modal-container[data-state='open'] {
   animation: contentShow 250ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-
 .modal-container[data-state='closed'] {
   animation: contentHide 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+@keyframes overlayShow {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes overlayHide {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
 @keyframes contentShow {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -48%) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
+  from { opacity: 0; transform: translate(-50%, -48%) scale(0.96); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
-
 @keyframes contentHide {
-  from {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translate(-50%, -48%) scale(0.96);
-  }
-}
-
-.modal-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  border: none;
-  background: var(--bg-secondary);
-  color: var(--text-secondary);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  z-index: 1;
-}
-
-.modal-close:hover {
-  background: var(--border);
-  color: var(--text-primary);
-}
-
-.modal-header {
-  padding: 32px 32px 24px;
-  border-bottom: 1px solid var(--border);
-}
-
-.mentor-badge {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  background: var(--gradient-subtle);
-  border-radius: 12px;
-  margin-bottom: 20px;
-  border: 1px solid rgba(74, 144, 226, 0.1);
-}
-
-.badge-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  background: var(--gradient-hero);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 16px;
-  font-family: 'Manrope', sans-serif;
-  flex-shrink: 0;
-}
-
-.badge-name {
-  font-weight: 600;
-  color: var(--text-primary);
-  font-size: 15px;
-}
-
-.badge-topic {
-  font-size: 13px;
-  color: var(--primary);
-  font-weight: 500;
-}
-
-.modal-title {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0 0 8px 0;
-}
-
-.modal-subtitle {
-  font-size: 16px;
-  color: var(--text-secondary);
-  margin: 0;
-}
-
-.modal-form {
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-label {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.form-input,
-.form-textarea {
-  width: 100%;
-  padding: 12px 16px;
-  border: 1.5px solid var(--border);
-  border-radius: 8px;
-  font-size: 15px;
-  font-family: inherit;
-  color: var(--text-primary);
-  transition: all 0.2s;
-  background: white;
-}
-
-.form-input:focus,
-.form-textarea:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
-}
-
-.form-textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-.form-submit {
-  width: 100%;
-  padding: 14px 24px;
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-family: inherit;
-  box-shadow: 0 2px 4px rgba(74, 144, 226, 0.15);
-}
-
-.form-submit:hover {
-  background: var(--primary-dark);
-  box-shadow: 0 4px 8px rgba(74, 144, 226, 0.2);
-  transform: translateY(-1px);
-}
-
-.form-submit svg {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.form-submit:hover svg {
-  transform: translateX(2px);
+  from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  to { opacity: 0; transform: translate(-50%, -48%) scale(0.96); }
 }
 
 @media (max-width: 768px) {
-  .modal-container {
-    width: 100%;
-    max-width: 100%;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    max-height: 95vh;
-    top: auto;
-    bottom: 0;
-    transform: translate(-50%, 0);
-  }
-
   .modal-container[data-state='open'] {
     animation: contentShowMobile 250ms cubic-bezier(0.16, 1, 0.3, 1);
   }
-
   .modal-container[data-state='closed'] {
     animation: contentHideMobile 200ms cubic-bezier(0.16, 1, 0.3, 1);
   }
-
   @keyframes contentShowMobile {
-    from {
-      opacity: 0;
-      transform: translate(-50%, 20px);
-    }
-    to {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
+    from { opacity: 0; transform: translate(-50%, 20px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
   }
-
   @keyframes contentHideMobile {
-    from {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-    to {
-      opacity: 0;
-      transform: translate(-50%, 20px);
-    }
-  }
-
-  .modal-header {
-    padding: 24px 24px 20px;
-  }
-
-  .modal-form {
-    padding: 24px;
-  }
-
-  .modal-title {
-    font-size: 24px;
+    from { opacity: 1; transform: translate(-50%, 0); }
+    to { opacity: 0; transform: translate(-50%, 20px); }
   }
 }
 </style>

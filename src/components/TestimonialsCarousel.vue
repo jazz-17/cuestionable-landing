@@ -1,5 +1,5 @@
 <template>
-  <div class="testimonials-carousel">
+  <div class="w-full pb-[60px]">
     <swiper
       :modules="modules"
       :slides-per-view="1"
@@ -23,11 +23,11 @@
           spaceBetween: 32,
         }
       }"
-      class="swiper-container"
+      class="!overflow-visible"
     >
       <swiper-slide v-for="(testimonial, index) in testimonials" :key="index">
-        <div class="testimonial-card">
-          <div class="quote-icon">
+        <div class="bg-white/60 backdrop-blur-xl backdrop-saturate-[180%] border border-white/80 rounded-[20px] p-6 md:p-8 h-full flex flex-col gap-5 shadow-[0_8px_32px_rgba(10,37,64,0.06)] transition-all duration-300 transition-smooth relative overflow-hidden hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(15,23,42,0.08)] hover:border-[rgba(74,144,226,0.3)] before:content-[''] before:absolute before:inset-0 before:bg-gradient-hero before:opacity-[0.02] before:pointer-events-none">
+          <div class="opacity-60">
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
               <path d="M10 18C10 15.7909 11.7909 14 14 14V11C10.134 11 7 14.134 7 18C7 21.866 10.134 25 14 25H17V18H10Z" fill="url(#quote-gradient)"/>
               <path d="M21 18C21 15.7909 22.7909 14 25 14V11C21.134 11 18 14.134 18 18C18 21.866 21.134 25 25 25H28V18H21Z" fill="url(#quote-gradient)"/>
@@ -40,18 +40,18 @@
             </svg>
           </div>
 
-          <p class="testimonial-text">{{ testimonial.text }}</p>
+          <p class="text-base leading-[1.7] text-[var(--text-primary)] flex-1 font-medium">{{ testimonial.text }}</p>
 
-          <div class="testimonial-author">
-            <div class="author-avatar">{{ testimonial.initials }}</div>
-            <div class="author-info">
-              <div class="author-name">{{ testimonial.name }}</div>
-              <div class="author-role">{{ testimonial.role }}</div>
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-gradient-hero text-white flex items-center justify-center font-bold text-base font-[Manrope,sans-serif]">{{ testimonial.initials }}</div>
+            <div class="flex-1">
+              <div class="font-semibold text-[var(--text-primary)] text-[15px]">{{ testimonial.name }}</div>
+              <div class="text-sm text-[var(--text-tertiary)]">{{ testimonial.role }}</div>
             </div>
           </div>
 
-          <div class="rating">
-            <span v-for="i in 5" :key="i" class="star">★</span>
+          <div class="flex gap-1">
+            <span v-for="i in 5" :key="i" class="text-amber-400 text-base">★</span>
           </div>
         </div>
       </swiper-slide>
@@ -96,106 +96,6 @@ const testimonials = [
 </script>
 
 <style scoped>
-.testimonials-carousel {
-  width: 100%;
-  padding: 0 0 60px 0;
-}
-
-.swiper-container {
-  overflow: visible;
-}
-
-.testimonial-card {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 20px;
-  padding: 32px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  box-shadow: 0 8px 32px rgba(10, 37, 64, 0.06);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.testimonial-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--gradient-hero);
-  opacity: 0.02;
-  pointer-events: none;
-}
-
-.testimonial-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
-  border-color: rgba(74, 144, 226, 0.3);
-}
-
-.quote-icon {
-  opacity: 0.6;
-}
-
-.testimonial-text {
-  font-size: 16px;
-  line-height: 1.7;
-  color: var(--text-primary);
-  flex: 1;
-  font-weight: 500;
-}
-
-.testimonial-author {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.author-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: var(--gradient-hero);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 16px;
-  font-family: 'Manrope', sans-serif;
-}
-
-.author-info {
-  flex: 1;
-}
-
-.author-name {
-  font-weight: 600;
-  color: var(--text-primary);
-  font-size: 15px;
-}
-
-.author-role {
-  font-size: 14px;
-  color: var(--text-tertiary);
-}
-
-.rating {
-  display: flex;
-  gap: 4px;
-}
-
-.star {
-  color: #fbbf24;
-  font-size: 16px;
-}
-
 :deep(.swiper-pagination) {
   bottom: 0;
 }
@@ -209,11 +109,5 @@ const testimonials = [
 :deep(.swiper-pagination-bullet-active) {
   opacity: 1;
   transform: scale(1.2);
-}
-
-@media (max-width: 768px) {
-  .testimonial-card {
-    padding: 24px;
-  }
 }
 </style>

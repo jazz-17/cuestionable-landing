@@ -1,7 +1,7 @@
 <template>
-  <div ref="counterRef" class="counter">
-    <div class="counter-number">{{ displayValue }}{{ suffix }}</div>
-    <div class="counter-label">{{ label }}</div>
+  <div ref="counterRef" class="text-center">
+    <div class="text-4xl md:text-5xl font-bold text-[var(--primary)] font-[Manrope,sans-serif] leading-none mb-3">{{ displayValue }}{{ suffix }}</div>
+    <div class="text-sm md:text-base text-[var(--text-tertiary)] font-medium">{{ label }}</div>
   </div>
 </template>
 
@@ -79,34 +79,3 @@ onMounted(() => {
   );
 });
 </script>
-
-<style scoped>
-.counter {
-  text-align: center;
-}
-
-.counter-number {
-  font-size: 48px;
-  font-weight: 700;
-  color: var(--primary);
-  font-family: 'Manrope', sans-serif;
-  line-height: 1;
-  margin-bottom: 12px;
-}
-
-.counter-label {
-  font-size: 16px;
-  color: var(--text-tertiary);
-  font-weight: 500;
-}
-
-@media (max-width: 768px) {
-  .counter-number {
-    font-size: 36px;
-  }
-
-  .counter-label {
-    font-size: 14px;
-  }
-}
-</style>

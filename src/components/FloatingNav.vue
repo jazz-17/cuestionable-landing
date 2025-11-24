@@ -1,20 +1,29 @@
 <template>
-  <nav :class="['floating-nav', { 'visible': isVisible }]">
-    <div class="nav-container">
-      <div class="nav-brand">
-        <span class="brand-icon">✦</span>
-        <span class="brand-text">CuestionaBle</span>
+  <nav :class="['fixed top-0 left-0 right-0 z-[1000] transition-transform duration-[400ms] transition-smooth', isVisible ? 'translate-y-0' : '-translate-y-full']">
+    <div class="max-w-7xl mx-4 md:mx-auto mt-4 md:mt-4 px-4 md:px-6 py-3 bg-white/80 backdrop-blur-xl backdrop-saturate-[180%] border border-[var(--border)] rounded-2xl shadow-[var(--shadow-lg)] flex items-center justify-between">
+      <div class="flex items-center gap-2 font-bold text-lg text-[var(--text-primary)] font-[Manrope,sans-serif]">
+        <span class="text-xl text-[var(--primary)]">✦</span>
+        <span class="text-base md:text-lg">CuestionaBle</span>
       </div>
 
-      <div class="nav-links">
-        <a href="#como-funciona" class="nav-link">Proceso</a>
-        <a href="#mentores" class="nav-link">Mentores</a>
-        <a href="#faq" class="nav-link">FAQ</a>
+      <div class="hidden md:flex gap-8">
+        <a href="#como-funciona" class="text-[var(--text-secondary)] no-underline text-[15px] font-medium transition-colors duration-200 relative hover:text-[var(--primary)] group">
+          Proceso
+          <span class="absolute -bottom-1 left-0 right-0 h-0.5 bg-[var(--primary)] scale-x-0 transition-transform duration-200 transition-smooth group-hover:scale-x-100"></span>
+        </a>
+        <a href="#mentores" class="text-[var(--text-secondary)] no-underline text-[15px] font-medium transition-colors duration-200 relative hover:text-[var(--primary)] group">
+          Mentores
+          <span class="absolute -bottom-1 left-0 right-0 h-0.5 bg-[var(--primary)] scale-x-0 transition-transform duration-200 transition-smooth group-hover:scale-x-100"></span>
+        </a>
+        <a href="#faq" class="text-[var(--text-secondary)] no-underline text-[15px] font-medium transition-colors duration-200 relative hover:text-[var(--primary)] group">
+          FAQ
+          <span class="absolute -bottom-1 left-0 right-0 h-0.5 bg-[var(--primary)] scale-x-0 transition-transform duration-200 transition-smooth group-hover:scale-x-100"></span>
+        </a>
       </div>
 
-      <a :href="formUrl" target="_blank" class="nav-cta">
+      <a :href="formUrl" target="_blank" class="inline-flex items-center gap-1.5 px-4 md:px-5 py-2 md:py-2.5 bg-[var(--primary)] text-white rounded-lg no-underline font-semibold text-[13px] md:text-sm transition-all duration-200 transition-smooth hover:bg-[var(--primary-dark)] hover:-translate-y-[1px] group">
         <span>Solicitar mentoría</span>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <svg class="transition-transform duration-200 transition-smooth group-hover:translate-x-0.5" width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
@@ -34,129 +43,3 @@ defineProps({
 
 const isVisible = ref(true);
 </script>
-
-<style scoped>
-.floating-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  transform: translateY(-100%);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.floating-nav.visible {
-  transform: translateY(0);
-}
-
-.nav-container {
-  max-width: 1280px;
-  margin: 16px auto;
-  padding: 12px 24px;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px) saturate(180%);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  box-shadow: var(--shadow-lg);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.nav-brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 700;
-  font-size: 18px;
-  color: var(--text-primary);
-  font-family: 'Manrope', sans-serif;
-}
-
-.brand-icon {
-  font-size: 20px;
-  color: var(--primary);
-}
-
-.nav-links {
-  display: flex;
-  gap: 32px;
-}
-
-.nav-link {
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 15px;
-  font-weight: 500;
-  transition: color 0.2s;
-  position: relative;
-}
-
-.nav-link:hover {
-  color: var(--primary);
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--primary);
-  transform: scaleX(0);
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.nav-link:hover::after {
-  transform: scaleX(1);
-}
-
-.nav-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 20px;
-  background: var(--primary);
-  color: white;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.nav-cta:hover {
-  background: var(--primary-dark);
-  transform: translateY(-1px);
-}
-
-.nav-cta svg {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.nav-cta:hover svg {
-  transform: translateX(2px);
-}
-
-@media (max-width: 768px) {
-  .nav-container {
-    margin: 12px;
-    padding: 10px 16px;
-  }
-
-  .nav-links {
-    display: none;
-  }
-
-  .brand-text {
-    font-size: 16px;
-  }
-
-  .nav-cta {
-    padding: 8px 16px;
-    font-size: 13px;
-  }
-}
-</style>

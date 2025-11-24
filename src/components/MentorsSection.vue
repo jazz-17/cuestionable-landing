@@ -1,5 +1,5 @@
 <template>
-  <div class="mentors-grid">
+  <div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8 max-w-[1000px] mx-auto">
     <MentorCard
       v-for="(mentor, index) in mentors"
       :key="index"
@@ -80,19 +80,3 @@ const closeBioModal = () => {
   isBioModalOpen.value = false;
 };
 </script>
-
-<style scoped>
-.mentors-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 32px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-@media (max-width: 768px) {
-  .mentors-grid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>

@@ -1,9 +1,11 @@
 <template>
-  <div class="step-card">
-    <div class="step-number">{{ number }}</div>
-    <div class="step-content">
-      <h3 class="step-title">{{ title }}</h3>
-      <p class="step-description">{{ description }}</p>
+  <div class="flex gap-4 md:gap-5 p-6 md:p-8 bg-white border border-[var(--border)] rounded-xl transition-all duration-300 transition-smooth relative hover:border-[rgba(74,144,226,0.3)] hover:shadow-[var(--shadow-md)] hover:-translate-y-0.5">
+    <div class="shrink-0 w-10 md:w-12 h-10 md:h-12 flex items-center justify-center rounded-[10px] bg-gradient-subtle text-[var(--primary)] text-xl md:text-2xl font-bold font-[Manrope,sans-serif]">
+      {{ number }}
+    </div>
+    <div class="flex-1">
+      <h3 class="text-lg md:text-xl font-bold text-[var(--text-primary)] mb-2 tracking-[-0.01em]">{{ title }}</h3>
+      <p class="text-[15px] md:text-base leading-relaxed text-[var(--text-secondary)] m-0">{{ description }}</p>
     </div>
   </div>
 </template>
@@ -24,78 +26,3 @@ defineProps({
   }
 });
 </script>
-
-<style scoped>
-.step-card {
-  display: flex;
-  gap: 20px;
-  padding: 32px;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-}
-
-.step-card:hover {
-  border-color: rgba(74, 144, 226, 0.3);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
-
-
-.step-number {
-  flex-shrink: 0;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  background: var(--gradient-subtle);
-  color: var(--primary);
-  font-size: 24px;
-  font-weight: 700;
-  font-family: 'Manrope', sans-serif;
-}
-
-.step-content {
-  flex: 1;
-}
-
-.step-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-  letter-spacing: -0.01em;
-}
-
-.step-description {
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--text-secondary);
-  margin: 0;
-}
-
-@media (max-width: 768px) {
-  .step-card {
-    padding: 24px;
-    gap: 16px;
-  }
-
-  .step-number {
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
-  }
-
-  .step-title {
-    font-size: 18px;
-  }
-
-  .step-description {
-    font-size: 15px;
-  }
-}
-</style>
