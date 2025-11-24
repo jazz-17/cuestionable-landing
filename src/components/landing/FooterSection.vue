@@ -5,7 +5,14 @@
         class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-8 md:gap-12 pb-8 border-b border-white/10"
       >
         <div>
-          <h3 class="text-lg font-bold mb-3">CuestionaBle Mentorship</h3>
+          <div class="flex items-center gap-2 mb-3">
+            <img
+              src="/logo.png"
+              alt="CuestionaBle Logo"
+              class="h-8 w-8 object-contain rounded-lg bg-white p-0.5"
+            />
+            <h3 class="text-lg font-bold m-0">CuestionaBle Mentorship</h3>
+          </div>
           <p class="text-[15px] leading-relaxed opacity-70 max-w-[400px]">
             Hecho con intención para que cuestiones, aprendas y crezcas.
           </p>
