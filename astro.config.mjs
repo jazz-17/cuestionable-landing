@@ -13,6 +13,13 @@ export default defineConfig({
 
     imageService: "cloudflare"
   }),
-  vite: { plugins: [tailwindcss()], },
+  vite: {
+    plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        "@": "/src",
+      },
+    },
+  },
   integrations: [vue()],
 });

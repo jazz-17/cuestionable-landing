@@ -1,52 +1,56 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import FloatingNav from '../components/FloatingNav.vue';
-import PrimaryButton from '../components/PrimaryButton.vue';
-import StepCard from '../components/StepCard.vue';
-import AnimatedCounter from '../components/AnimatedCounter.vue';
-import MentorsSection from '../components/MentorsSection.vue';
-import TestimonialsCarousel from '../components/TestimonialsCarousel.vue';
-import FAQItem from '../components/FAQItem.vue';
-import VideosSection from '../components/VideosSection.vue';
-import './../styles/global.css';
-const formUrl = 'https://forms.gle/JdC6fM1Fazotx6b6A';
+import Layout from "@/layouts/Layout.astro"
+import FloatingNav from "@/components/FloatingNav.vue";
+import HeroSection from "@/components/landing/HeroSection.vue";
+import BenefitsSection from "@/components/landing/BenefitsSection.vue";
+import ProcessSection from "@/components/landing/ProcessSection.vue";
+import MentorsSection from "@/components/landing/MentorsSection.vue";
+import TestimonialsSection from "@/components/landing/TestimonialsCarousel.vue";
+import FAQSection from "@/components/landing/FAQSection.vue";
+import VideosSection from "@/components/landing/VideosSection.vue";
+import FooterSection from "@/components/landing/FooterSection.vue";
+import "./../styles/global.css";
+
+const formUrl = "https://forms.gle/JdC6fM1Fazotx6b6A";
 // YouTube channel and videos
 const youtubeChannel = {
-  name: 'CuestionaBle',
-  handle: '@cuestionablepe',
-  url: 'https://www.youtube.com/@cuestionablepe',
+  name: "CuestionaBle",
+  handle: "@cuestionablepe",
+  url: "https://www.youtube.com/@cuestionablepe",
 };
 
 // To add videos: Just paste the video ID from YouTube URL
 // Example: https://www.youtube.com/watch?v=dQw4w9WgXcQ -> paste 'dQw4w9WgXcQ'
+
 const latestVideos = [
-  // Paste your video IDs here, one per line:
-  // 'your-video-id-1',
-  // 'your-video-id-2',
-  // 'your-video-id-3',
+  "W1xLNhRqXX4",
+  "PkhtfTh8A3w",
+  "9Hau3zKtrIM"
+  
+
 ].filter(Boolean);
 
 const steps = [
   {
     number: 1,
-    title: 'Explora nuestros mentores',
-    description: 'Descubre los perfiles y temas que más te inspiren.'
+    title: "Explora nuestros mentores",
+    description: "Descubre los perfiles y temas que más te inspiren.",
   },
   {
     number: 2,
-    title: 'Completa el formulario',
-    description: 'Cuéntanos qué quieres lograr con tu mentoría.'
+    title: "Completa el formulario",
+    description: "Cuéntanos qué quieres lograr con tu mentoría.",
   },
   {
     number: 3,
-    title: 'Coordinamos los detalles',
-    description: 'Revisaremos tu información y nos pondremos en contacto.'
+    title: "Coordinamos los detalles",
+    description: "Revisaremos tu información y nos pondremos en contacto.",
   },
   {
     number: 4,
-    title: 'Comienza tu mentoría',
-    description: 'Aprovecha al máximo tu sesión personalizada.'
-  }
+    title: "Comienza tu mentoría",
+    description: "Aprovecha al máximo tu sesión personalizada.",
+  },
 ];
 
 // To add mentor photos:
@@ -57,44 +61,47 @@ const steps = [
 
 const mentors = [
   {
-    name: 'Adrian Zamudio',
-    topic: 'Marketing',
-    availability: 'Disponible',
-    rating: 5,
-    image: '', // Add: 'mentors/adrian.jpg' or external URL
-    bio: 'Especialista en marketing digital con más de 5 años de experiencia ayudando a empresas a crecer su presencia online y optimizar sus estrategias de contenido.' // Optional bio
+    name: "Adrian Zamudio",
+    topic: "Marketing",
+    availability: "Disponible",
+    rating: 4.8,
+    image: "mentors/andrian_zamudio.png", // Add: 'mentors/adrian.png' or external URL
+    bio: "Especialista en marketing digital con más de 5 años de experiencia ayudando a empresas a crecer su presencia online y optimizar sus estrategias de contenido.", // Optional bio
   },
   {
-    name: 'Maribel Bartolo',
-    topic: 'Recursos Humanos',
-    availability: 'Disponible',
-    rating: 5,
-    image: '', // Add: 'mentors/maribel.jpg' or external URL
-    bio: 'Experta en gestión de talento y desarrollo organizacional, enfocada en crear culturas de trabajo positivas y procesos de selección efectivos.' // Optional bio
+    name: "Maribel Bartolo",
+    topic: "Recursos Humanos",
+    availability: "Disponible",
+    rating: 4.83,
+    image: "mentors/maribel_bartolo.png", // Add: 'mentors/adrian.png' or external URL
+    bio: "Experta en gestión de talento y desarrollo organizacional, enfocada en crear culturas de trabajo positivas y procesos de selección efectivos.", // Optional bio
   },
   {
-    name: 'Nicole Quispe',
-    topic: 'Tecnología',
-    availability: 'Disponible',
-    rating: 4,
-    image: '', // Add: 'mentors/nicole.jpg' or external URL
-    bio: 'Desarrolladora full-stack y consultora en tecnología, especializada en ayudar a profesionales a transicionar al mundo tech y mejorar sus habilidades técnicas.' // Optional bio
-  }
+    name: "Nicole Quispe",
+    topic: "Tecnología",
+    availability: "Disponible",
+    rating: 4.9,
+    image: "mentors/nicole_quispe.png", // Add: 'mentors/adrian.png' or external URL
+    bio: "Desarrolladora full-stack y consultora en tecnología, especializada en ayudar a profesionales a transicionar al mundo tech y mejorar sus habilidades técnicas.", // Optional bio
+  },
 ];
 
 const faqs = [
   {
-    question: '¿Qué tipo de mentorías ofrecen?',
-    answer: 'Nos enfocamos en mejora del perfil profesional y soluciones basadas en herramientas de Business Intelligence.'
+    question: "¿Qué tipo de mentorías ofrecen?",
+    answer:
+      "Nos enfocamos en mejora del perfil profesional y soluciones basadas en herramientas de Business Intelligence.",
   },
   {
-    question: '¿Las mentorías son pagadas?',
-    answer: 'Sí, las mentorías tienen un costo que se comunica al momento de la confirmación. El pago se realiza dentro de los tres días posteriores a la aprobación.'
+    question: "¿Las mentorías son pagadas?",
+    answer:
+      "Sí, las mentorías tienen un costo que se comunica al momento de la confirmación. El pago se realiza dentro de los tres días posteriores a la aprobación.",
   },
   {
-    question: '¿Qué pasa si no puedo asistir?',
-    answer: 'Puedes reprogramar o solicitar reembolso con al menos 24 horas de anticipación.'
-  }
+    question: "¿Qué pasa si no puedo asistir?",
+    answer:
+      "Puedes reprogramar o solicitar reembolso con al menos 24 horas de anticipación.",
+  },
 ];
 ---
 
@@ -102,120 +109,21 @@ const faqs = [
   <FloatingNav formUrl={formUrl} client:load />
 
   <!-- HERO -->
-  <section class="hero relative py-20 pt-[120px] md:py-15 md:pt-20 overflow-hidden bg-gradient-hero">
-    <!-- Pattern overlay -->
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width=%2260%22%20height=%2260%22%20viewBox=%220%200%2060%2060%22%20xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg%20fill=%22none%22%20fill-rule=%22evenodd%22%3E%3Cg%20fill=%22%23ffffff%22%20fill-opacity=%220.04%22%3E%3Cpath%20d=%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
-    <!-- Gradient overlay -->
-    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(190, 123, 237, 0.3) 0%, transparent 50%), radial-gradient(circle at 40% 20%, rgba(74, 144, 226, 0.2) 0%, transparent 50%);"></div>
-
-    <div class="container">
-      <div class="max-w-[680px] mx-auto text-center relative z-[2]">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full text-sm font-medium text-white mb-8 animate-fade-in">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M8 2L10 6L14 6.5L11 9.5L11.5 14L8 12L4.5 14L5 9.5L2 6.5L6 6L8 2Z" fill="currentColor"/>
-          </svg>
-          <span>Mentorías personalizadas</span>
-        </div>
-
-        <h1 class="text-4xl md:text-[56px] font-extrabold text-white mb-5 leading-tight animate-fade-in" style="animation-delay: 0.1s">
-          Potencia tu carrera profesional
-        </h1>
-
-        <p class="text-lg md:text-xl leading-relaxed text-white/95 mb-10 animate-fade-in" style="animation-delay: 0.2s">
-          Conecta con mentores expertos en Business Intelligence y desarrollo profesional. Sesiones 1 a 1 diseñadas para tus objetivos.
-        </p>
-
-        <div class="flex justify-center gap-4 flex-wrap animate-fade-in" style="animation-delay: 0.3s">
-          <a href={formUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-10 py-4.5 bg-white text-[var(--text-primary)] no-underline rounded-xl font-bold text-lg transition-all duration-300 transition-smooth shadow-[0_10px_30px_rgba(0,0,0,0.3),0_4px_10px_rgba(0,0,0,0.2)] border-2 border-white/30 hover:-translate-y-[3px] hover:shadow-[0_15px_40px_rgba(0,0,0,0.4),0_8px_15px_rgba(0,0,0,0.25)] hover:border-white/50 active:-translate-y-[1px] group">
-            <span>Solicitar mentoría</span>
-            <svg class="transition-transform duration-300 transition-smooth group-hover:translate-x-1" width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-          <a href="#como-funciona" class="inline-flex items-center gap-2 px-8 py-4.5 bg-white/10 text-white no-underline rounded-xl font-semibold text-lg transition-all duration-300 transition-smooth backdrop-blur-sm border-2 border-white/30 hover:bg-white/20 hover:border-white/50 hover:-translate-y-0.5">
-            Cómo funciona
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <HeroSection formUrl={formUrl} client:load />
 
   <!-- BENEFITS -->
-  <section class="benefits relative py-20 md:py-15 bg-white overflow-hidden">
-    <!-- Decorative gradients -->
-    <div class="absolute -top-1/2 -right-[10%] w-[600px] h-[600px] pointer-events-none" style="background: radial-gradient(circle, rgba(74, 144, 226, 0.03) 0%, transparent 70%);"></div>
-    <div class="absolute -bottom-1/2 -left-[10%] w-[500px] h-[500px] pointer-events-none" style="background: radial-gradient(circle, rgba(2, 132, 199, 0.02) 0%, transparent 70%);"></div>
-
-    <div class="container">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[1000px] mx-auto">
-        <div class="text-center px-6 py-8 relative z-[1]">
-          <div class="w-12 h-12 mx-auto mb-5 text-[var(--primary)]">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="w-full h-full">
-              <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" stroke="currentColor" stroke-width="2" fill="none"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold text-[var(--text-primary)] mb-2">Sesiones personalizadas</h3>
-          <p class="text-base text-[var(--text-secondary)] leading-relaxed">60 minutos completamente enfocados en tus objetivos</p>
-        </div>
-
-        <div class="text-center px-6 py-8 relative z-[1]">
-          <div class="w-12 h-12 mx-auto mb-5 text-[var(--primary)]">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="w-full h-full">
-              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
-              <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold text-[var(--text-primary)] mb-2">Horarios flexibles</h3>
-          <p class="text-base text-[var(--text-secondary)] leading-relaxed">Agenda cuando mejor te convenga</p>
-        </div>
-
-        <div class="text-center px-6 py-8 relative z-[1]">
-          <div class="w-12 h-12 mx-auto mb-5 text-[var(--primary)]">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="w-full h-full">
-              <path d="M9 11L12 14L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M21 12V19C21 20.1 20.1 21 19 21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold text-[var(--text-primary)] mb-2">Resultados medibles</h3>
-          <p class="text-base text-[var(--text-secondary)] leading-relaxed">Seguimiento claro de tu progreso</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <BenefitsSection client:visible />
 
   <!-- PROCESS -->
-  <section id="como-funciona" class="process relative py-20 md:py-15" style="background: linear-gradient(to bottom, #f8fafc 0%, #f1f5f9 100%);">
-    <!-- Grid pattern -->
-    <div class="absolute inset-0 pointer-events-none bg-[url('data:image/svg+xml,%3Csvg%20width=%22100%22%20height=%22100%22%20viewBox=%220%200%20100%20100%22%20xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath%20d=%22M50%200%20L50%20100%20M0%2050%20L100%2050%22%20stroke=%22%230ea5e9%22%20stroke-width=%220.5%22%20opacity=%220.03%22/%3E%3C/svg%3E')]"></div>
-
-    <div class="container">
-      <div class="section-header">
-        <div class="section-badge">Proceso</div>
-        <h2 class="section-title">Cómo funciona</h2>
-      </div>
-
-      <div class="max-w-[800px] mx-auto flex flex-col gap-4">
-        {steps.map((step, index) => (
-          <div>
-            <StepCard
-              number={step.number}
-              title={step.title}
-              description={step.description}
-              client:load
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <ProcessSection steps={steps} client:visible />
 
   <!-- MENTORS -->
-  <section id="mentores" class="mentors relative py-20 md:py-15" style="background: linear-gradient(to bottom, white 0%, #fafbfc 100%);">
-    <!-- Decorative gradient -->
-    <div class="absolute top-[10%] left-[5%] w-[300px] h-[300px] rounded-full pointer-events-none" style="background: radial-gradient(circle, rgba(74, 144, 226, 0.04) 0%, transparent 70%);"></div>
-
+  <section
+    id="mentores"
+    class="mentors relative py-20 md:py-24 bg-white"
+  >
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal-on-scroll">
         <div class="section-badge">Equipo</div>
         <h2 class="section-title">Nuestros mentores</h2>
       </div>
@@ -224,73 +132,80 @@ const faqs = [
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
-  <section class="testimonials relative py-20 md:py-15" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);">
-    <!-- Decorative gradient -->
-    <div class="absolute bottom-0 right-0 w-[400px] h-[400px] pointer-events-none" style="background: radial-gradient(circle, rgba(190, 123, 237, 0.05) 0%, transparent 70%);"></div>
-
-    <div class="container">
-      <div class="section-header">
-        <div class="section-badge">Testimonios</div>
-        <h2 class="section-title">Lo que dicen nuestros mentorados</h2>
-      </div>
-
-      <TestimonialsCarousel client:visible />
-    </div>
-  </section>
-
   <!-- FAQ -->
-  <section id="faq" class="faq py-20 md:py-15 bg-white">
+  <section id="faq" class="faq py-20 md:py-24 bg-[var(--bg-secondary)]">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal-on-scroll">
         <div class="section-badge">FAQ</div>
         <h2 class="section-title">Preguntas frecuentes</h2>
       </div>
 
-      <div class="max-w-[700px] mx-auto mb-8 flex flex-col gap-3">
-        {faqs.map((faq) => (
-          <FAQItem
-            question={faq.question}
-            answer={faq.answer}
-            client:load
-          />
-        ))}
-      </div>
+      <FAQSection faqs={faqs} client:load />
 
-      <div class="text-center py-5 max-w-[600px] mx-auto">
+      <div class="text-center py-8 max-w-[600px] mx-auto reveal-on-scroll">
         <p class="text-[var(--text-secondary)]">
-          ¿Más preguntas? Escríbenos a <a href="mailto:contacto@cuestionable.pe" class="text-[var(--primary)] no-underline font-semibold hover:underline">contacto@cuestionable.pe</a>
+          ¿Más preguntas? Escríbenos a <a
+            href="mailto:contacto@cuestionable.pe"
+            class="text-[var(--primary)] no-underline font-semibold hover:underline"
+            >contacto@cuestionable.pe</a
+          >
         </p>
       </div>
     </div>
   </section>
 
   <!-- VIDEOS -->
-  <section class="videos py-20 md:py-15 bg-[var(--bg-secondary)]">
+  <section class="videos py-20 md:py-24 bg-white">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal-on-scroll">
         <div class="section-badge">Videos</div>
         <h2 class="section-title">Últimos videos de YouTube</h2>
-        <p class="text-base text-[var(--text-secondary)] mt-4">
-          Contenido exclusivo sobre Business Intelligence, análisis de datos y desarrollo profesional
+        <p class="text-base text-[var(--text-secondary)] mt-4 max-w-2xl mx-auto">
+          Contenido exclusivo sobre Business Intelligence, análisis de datos y
+          desarrollo profesional
         </p>
       </div>
 
-      <div class="flex justify-between items-center p-6 bg-white rounded-2xl border border-[var(--border)] mb-10 transition-all duration-200 transition-smooth hover:border-[rgba(74,144,226,0.2)] hover:shadow-[var(--shadow-sm)] flex-col md:flex-row gap-5 md:gap-0 text-center md:text-left">
-        <div class="flex items-center gap-4 flex-col md:flex-row">
-          <div class="w-14 h-14 rounded-xl flex items-center justify-center text-white flex-shrink-0" style="background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);">
+      <div
+        class="flex justify-between items-center p-8 bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border)] mb-12 transition-all duration-300 hover:border-[var(--primary)] hover:shadow-lg flex-col md:flex-row gap-6 md:gap-0 text-center md:text-left reveal-on-scroll"
+      >
+        <div class="flex items-center gap-6 flex-col md:flex-row">
+          <div
+            class="w-16 h-16 rounded-2xl flex items-center justify-center text-white flex-shrink-0 shadow-md"
+            style="background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);"
+          >
             <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              <path
+                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+              ></path>
             </svg>
           </div>
           <div class="flex flex-col gap-1">
-            <h3 class="text-xl font-bold text-[var(--text-primary)] m-0">{youtubeChannel.name}</h3>
-            <p class="text-sm text-[var(--text-secondary)] m-0">{youtubeChannel.handle}</p>
+            <h3 class="text-xl font-bold text-[var(--text-primary)] m-0">
+              {youtubeChannel.name}
+            </h3>
+            <p class="text-sm text-[var(--text-secondary)] m-0">
+              {youtubeChannel.handle}
+            </p>
           </div>
         </div>
-        <a href={youtubeChannel.url} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-6 py-3 bg-[var(--primary)] text-white no-underline rounded-lg font-semibold text-[15px] transition-all duration-200 transition-smooth shadow-[0_2px_4px_rgba(74,144,226,0.15)] hover:bg-[var(--primary-dark)] hover:-translate-y-[1px] hover:shadow-[0_4px_8px_rgba(74,144,226,0.2)] w-full md:w-auto justify-center">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+        <a
+          href={youtubeChannel.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 px-8 py-3 bg-[var(--primary)] text-white no-underline rounded-full font-semibold text-[15px] transition-all duration-200 shadow-sm hover:bg-[var(--primary-dark)] hover:-translate-y-[1px] hover:shadow-md w-full md:w-auto justify-center"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"
+            ></path>
           </svg>
           Suscribirse
         </a>
@@ -305,38 +220,29 @@ const faqs = [
   </section>
 
   <!-- FOOTER -->
-  <footer class="bg-[var(--text-primary)] text-white py-15 pb-8">
-    <div class="container">
-      <div class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-8 md:gap-12 pb-8 border-b border-white/10">
-        <div>
-          <h3 class="text-lg font-bold mb-3">CuestionaBle Mentorship</h3>
-          <p class="text-[15px] leading-relaxed opacity-70 max-w-[400px]">
-            Hecho con intención para que cuestiones, aprendas y crezcas.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          <div>
-            <h4 class="text-[13px] font-semibold mb-3 uppercase tracking-wide opacity-50">Navegación</h4>
-            <ul class="list-none flex flex-col gap-2.5">
-              <li><a href="#como-funciona" class="text-white no-underline opacity-80 hover:opacity-100 transition-opacity duration-200 text-sm">Cómo funciona</a></li>
-              <li><a href="#mentores" class="text-white no-underline opacity-80 hover:opacity-100 transition-opacity duration-200 text-sm">Mentores</a></li>
-              <li><a href="#faq" class="text-white no-underline opacity-80 hover:opacity-100 transition-opacity duration-200 text-sm">FAQ</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 class="text-[13px] font-semibold mb-3 uppercase tracking-wide opacity-50">Contacto</h4>
-            <ul class="list-none flex flex-col gap-2.5">
-              <li><a href="mailto:contacto@cuestionable.pe" class="text-white no-underline opacity-80 hover:opacity-100 transition-opacity duration-200 text-sm">contacto@cuestionable.pe</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="text-center pt-6 text-sm opacity-60">
-        <p>&copy; {new Date().getFullYear()} CuestionaBle Mentorship</p>
-      </div>
-    </div>
-  </footer>
+  <FooterSection />
 </Layout>
+
+<script>
+  // Scroll Animation Observer
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target); // Only animate once
+      }
+    });
+  }, observerOptions);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const revealElements = document.querySelectorAll(".reveal-on-scroll");
+    revealElements.forEach((el) => observer.observe(el));
+  });
+</script>
+
